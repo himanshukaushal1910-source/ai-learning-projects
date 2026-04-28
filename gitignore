@@ -1,0 +1,145 @@
+# ─────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────
+
+# Byte-compiled / optimised / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments — never commit these
+venv/
+env/
+.venv/
+.env_folder/
+
+# ─────────────────────────────────────────────
+# Environment variables — CRITICAL
+# API keys and secrets must never go to GitHub
+# ─────────────────────────────────────────────
+
+.env
+.env.local
+.env.production
+*.env
+
+# ─────────────────────────────────────────────
+# Sentence Transformers
+# Model weights download automatically
+# no need to commit them — they are large files
+# ─────────────────────────────────────────────
+
+.cache/
+models/
+*.bin
+*.pt
+*.pth
+
+# HuggingFace cache
+~/.cache/huggingface/
+
+# ─────────────────────────────────────────────
+# ChromaDB
+# Local vector database storage files
+# these are generated at runtime
+# ─────────────────────────────────────────────
+
+chroma/
+chroma_db/
+*.chroma
+.chroma/
+
+# ─────────────────────────────────────────────
+# OpenAI / API keys
+# redundant with .env above but explicit
+# ─────────────────────────────────────────────
+
+openai_key.txt
+api_keys.txt
+secrets.txt
+
+# ─────────────────────────────────────────────
+# FastAPI
+# ─────────────────────────────────────────────
+
+# uvicorn logs
+*.log
+logs/
+
+# ─────────────────────────────────────────────
+# Jupyter Notebooks
+# ─────────────────────────────────────────────
+
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ─────────────────────────────────────────────
+# Data files
+# CSVs with real data should not go to GitHub
+# unless they are small sample/test files
+# ─────────────────────────────────────────────
+
+# Uncomment these if your CSVs contain real data
+# *.csv
+# *.json
+# *.parquet
+
+# Large data files always excluded
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# ─────────────────────────────────────────────
+# OS generated files
+# ─────────────────────────────────────────────
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ─────────────────────────────────────────────
+# IDEs and editors
+# ─────────────────────────────────────────────
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# ─────────────────────────────────────────────
+# Testing
+# ─────────────────────────────────────────────
+
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ─────────────────────────────────────────────
+# Misc
+# ─────────────────────────────────────────────
+
+*.tmp
+*.temp
+*.swp
