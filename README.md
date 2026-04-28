@@ -106,13 +106,13 @@ Every topic follows the same structure:
 
 ## About the Developer
 
-**[Your Name]**
+**[Himanshu Kaushal]**
 
 [Add 2-3 sentences about yourself — your background, what you're transitioning from or into, and what excites you about AI engineering.]
 
-- 📧 [your email]
+- 📧 [himanshukaushal1910@gmail.com]
 - 💼 [LinkedIn URL]
-- 🐙 [GitHub profile URL]
+- 🐙 [https://github.com/himanshukaushal1910-source/]
 
 ---
 
