@@ -1,4 +1,5 @@
 # The NovaMind Story — Lane 1 Running Narrative
+
 ## Your 4-Week AI Engineering Journey told as a Story
 
 ---
@@ -8,13 +9,14 @@
 You just got hired as the first AI engineer at **NovaMind** — a 40-person product startup that builds project management software. They're smart people but they're drowning in their own information.
 
 They have:
+
 - 300+ internal documents — product specs, meeting notes, research papers, decision logs
 - A Notion workspace nobody can search properly
-- Engineers who spend 2 hours a day just *looking* for things they know exist somewhere
+- Engineers who spend 2 hours a day just _looking_ for things they know exist somewhere
 
 The CEO walks up to you on Day 1 and says:
 
-> *"I need to ask a question like 'what did we decide about the pricing model in Q2?' and get the right answer in seconds. Can you build that?"*
+> _"I need to ask a question like 'what did we decide about the pricing model in Q2?' and get the right answer in seconds. Can you build that?"_
 
 You say yes. This is your 4 weeks.
 
@@ -35,6 +37,7 @@ Before you can do anything intelligent with these documents, you need to clean t
 Imagine you're trying to find two documents that mean the same thing. One says `"  PRICING MODEL DECISION  "` and another says `"pricing model decision"`. To a computer comparing raw text — these look completely different. Extra spaces, different cases — all noise that gets in the way.
 
 Your pandas cleaning script solves exactly this. It:
+
 - Loads the CSV into a DataFrame — a spreadsheet that lives in Python
 - Removes rows with no content — empty documents are useless to search over
 - Catches the sneaky ones — rows that look non-empty but are just spaces
@@ -69,7 +72,7 @@ No single number means anything on its own. But together, all 384 numbers precis
 
 **Why does this help NovaMind?**
 
-When the CEO asks *"what did we decide about pricing?"* — you convert that question into a vector too. Then you find which document vectors are closest to the question vector. Those are your answers.
+When the CEO asks _"what did we decide about pricing?"_ — you convert that question into a vector too. Then you find which document vectors are closest to the question vector. Those are your answers.
 
 This is the entire foundation of NovaMind's knowledge base. Everything else builds on this one idea.
 
@@ -82,6 +85,7 @@ You use **cosine similarity** — it measures the angle between two vectors.
 Think of each document as an arrow pointing out from the centre of a globe. Two documents about pricing point in nearly the same direction — small angle between them, high similarity score. A pricing document and an engineering document point in very different directions — large angle, low similarity score.
 
 Cosine similarity gives you a number between 0 and 1:
+
 - `0.95` — these documents are about almost the same thing
 - `0.4` — loosely related
 - `0.05` — completely unrelated
@@ -103,8 +107,9 @@ By end of Day 1 you have two working scripts in your NovaMind project folder:
 `similarity_check.py` — takes any two pieces of text, converts them to vectors using a local embedding model, and scores how similar they are using cosine similarity, dot product and euclidean distance
 
 You run a quick test. You take two NovaMind document excerpts:
-- *"Q2 pricing decision: we will go with a per-seat model"*
-- *"The team agreed on per-seat pricing in the second quarter"*
+
+- _"Q2 pricing decision: we will go with a per-seat model"_
+- _"The team agreed on per-seat pricing in the second quarter"_
 
 Cosine similarity: `0.91` — the system correctly identifies these as meaning the same thing, even though they use different words.
 
@@ -160,8 +165,8 @@ Then normalisation scales that vector to length 1 — same direction, magnitude 
 
 You compared `all-MiniLM-L6-v2` (384 dims) against `all-mpnet-base-v2` (768 dims) on the same sentence pairs. The results were surprising:
 
-- mpnet scored *higher* on Pair 2 (pricing/billing) — more dimensions captured the paraphrase better
-- mpnet scored *lower* on Pair 1 (server costs/infrastructure) — stricter domain separation hurt it here
+- mpnet scored _higher_ on Pair 2 (pricing/billing) — more dimensions captured the paraphrase better
+- mpnet scored _lower_ on Pair 1 (server costs/infrastructure) — stricter domain separation hurt it here
 - Both models agreed on obvious pairs
 
 The lesson: bigger model does not always mean better on every pair. Always benchmark on your actual data before committing to a model.
@@ -186,8 +191,8 @@ The lesson: bigger model does not always mean better on every pair. Always bench
 
 **The gap that Day 2 closed:**
 
-On Day 1 you knew *what* a vector was.
-On Day 2 you know *how* a sentence becomes one.
+On Day 1 you knew _what_ a vector was.
+On Day 2 you know _how_ a sentence becomes one.
 
 The black box is now transparent. Every time you call `model.encode()` for the rest of this program — you'll know exactly what's happening inside.
 
@@ -205,45 +210,45 @@ How you split them determines everything. That's Day 3.
 
 ## Story Progress Tracker
 
-| Day | Chapter | What NovaMind got |
-|-----|---------|-------------------|
-| W1D1 | Learning to speak in numbers | Clean documents + similarity scoring |
-| W1D2 | How meaning becomes numbers | Full embedding pipeline understood + Chroma preview |
-| W1D3 | *How to slice a document* | *Coming tomorrow* |
-| W1D4 | | |
-| W1D5 | | |
-| W2D1 | | |
-| W2D2 | | |
-| W2D3 | | |
-| W2D4 | | |
-| W2D5 | | |
-| W3D1 | | |
-| W3D2 | | |
-| W3D3 | | |
-| W3D4 | | |
-| W3D5 | | |
-| W4D1 | | |
-| W4D2 | | |
-| W4D3 | | |
-| W4D4 | | |
-| W4D5 | | |
+| Day  | Chapter                      | What NovaMind got                                   |
+| ---- | ---------------------------- | --------------------------------------------------- |
+| W1D1 | Learning to speak in numbers | Clean documents + similarity scoring                |
+| W1D2 | How meaning becomes numbers  | Full embedding pipeline understood + Chroma preview |
+| W1D3 | How to slice a document      | Chunking pipeline + ingestion + search working      |
+| W1D4 | Coming tomorrow              |                                                     |
+| W1D5 |                              |                                                     |
+| W2D1 |                              |                                                     |
+| W2D2 |                              |                                                     |
+| W2D3 |                              |                                                     |
+| W2D4 |                              |                                                     |
+| W2D5 |                              |                                                     |
+| W3D1 |                              |                                                     |
+| W3D2 |                              |                                                     |
+| W3D3 |                              |                                                     |
+| W3D4 |                              |                                                     |
+| W3D5 |                              |                                                     |
+| W4D1 |                              |                                                     |
+| W4D2 |                              |                                                     |
+| W4D3 |                              |                                                     |
+| W4D4 |                              |                                                     |
+| W4D5 |                              |                                                     |
 
 ---
 
 ## Scripts Built So Far
 
-| Script | What it does |
-|--------|-------------|
-| `clean_products.py` | Loads CSV, removes empty rows, cleans text, exports clean CSV |
-| `similarity_metrics.py` | Computes cosine, dot product and euclidean between sentence pairs |
-| `tokenisation_demo.py` | Shows tokenisation with real token IDs |
-| `embedding_dimensions.py` | Shows embedding shape and value ranges |
-| `mean_pooling_demo.py` | Manually reproduces model.encode() step by step |
-| `similarity_cli.py` | CLI tool — enter any two sentences, get similarity score |
-| `model_comparison.py` | Compares MiniLM vs mpnet side by side |
-| `chroma_preview.py` | Stores 3 docs in Chroma, runs similarity search |
+| Script                    | What it does                                                      |
+| ------------------------- | ----------------------------------------------------------------- |
+| `clean_products.py`       | Loads CSV, removes empty rows, cleans text, exports clean CSV     |
+| `similarity_metrics.py`   | Computes cosine, dot product and euclidean between sentence pairs |
+| `tokenisation_demo.py`    | Shows tokenisation with real token IDs                            |
+| `embedding_dimensions.py` | Shows embedding shape and value ranges                            |
+| `mean_pooling_demo.py`    | Manually reproduces model.encode() step by step                   |
+| `similarity_cli.py`       | CLI tool — enter any two sentences, get similarity score          |
+| `model_comparison.py`     | Compares MiniLM vs mpnet side by side                             |
+| `chroma_preview.py`       | Stores 3 docs in Chroma, runs similarity search                   |
 
 ---
 
-*This file grows every day. After each day's review slot a new chapter is added.*
-*By end of Week 4 this is the complete story of building NovaMind's knowledge base.*
+_This file grows every day. After each day's review slot a new chapter is added._
+_By end of Week 4 this is the complete story of building NovaMind's knowledge base._
