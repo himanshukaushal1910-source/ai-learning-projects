@@ -1,0 +1,19 @@
+# requirements.txt
+# PDF RAG Pipeline — NovaMind Document Assistant
+# Install all dependencies with:
+#   pip install -r requirements.txt
+
+# PDF text extraction
+pymupdf>=1.23.0
+
+# Vector database — in-memory and server modes
+qdrant-client>=1.7.0
+
+# Sentence embeddings — all-MiniLM-L6-v2 model
+sentence-transformers>=2.2.0
+
+# Text chunking
+langchain-text-splitters>=0.0.1
+
+# LLM API — Groq (LLaMA 3.3 70B)
+groq>=0.4.0
