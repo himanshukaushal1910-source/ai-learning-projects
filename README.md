@@ -18,29 +18,32 @@ RAG pipelines, recommendation systems, AI agents and full API deployment.
 
 ## Projects
 
-| # | Project | Description | Tech Stack | Status |
-|---|---------|-------------|------------|--------|
-| 1 | **Mini Semantic Search** | Semantic search over text data using vector embeddings and cosine similarity. Supports metadata filtering and CLI interface. | sentence-transformers, ChromaDB, numpy | 🔨 In Progress |
-| 2 | **PDF Q&A Chatbot** | Upload any PDF and ask questions. Answers include citations showing exactly which page the answer came from. | OpenAI, ChromaDB, LangChain | 📅 Week 2 |
-| 3 | **Product Recommendation Engine** | Content-based recommendation system using embedding similarity. Given any product, returns top 5 most similar products with scores. | sentence-transformers, Qdrant | 📅 Week 3 |
-| 4 | **AI Research Agent** | Autonomous research agent that searches the web and queries a local knowledge base to synthesise answers from multiple sources. | LangChain, LangGraph, Qdrant | 📅 Week 3 |
-| 5 | **Team Knowledge Base API** | Production-grade knowledge base API. Ingest PDFs and documents, search by meaning, get answers with sources. Deployed with FastAPI and Docker. | Qdrant, FastAPI, Docker, OpenAI | 📅 Week 4 |
+| #   | Project                           | Description                                                                                                                                    | Tech Stack                             | Status         |
+| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | -------------- |
+| 1   | **Mini Semantic Search**          | Semantic search over text data using vector embeddings and cosine similarity. Supports metadata filtering and CLI interface.                   | sentence-transformers, ChromaDB, numpy | 🔨 In Progress |
+| 2   | **PDF Q&A Chatbot**               | Upload any PDF and ask questions. Answers include citations showing exactly which page the answer came from.                                   | OpenAI, ChromaDB, LangChain            | 📅 Week 2      |
+| 3   | **Product Recommendation Engine** | Content-based recommendation system using embedding similarity. Given any product, returns top 5 most similar products with scores.            | sentence-transformers, Qdrant          | 📅 Week 3      |
+| 4   | **AI Research Agent**             | Autonomous research agent that searches the web and queries a local knowledge base to synthesise answers from multiple sources.                | LangChain, LangGraph, Qdrant           | 📅 Week 3      |
+| 5   | **Team Knowledge Base API**       | Production-grade knowledge base API. Ingest PDFs and documents, search by meaning, get answers with sources. Deployed with FastAPI and Docker. | Qdrant, FastAPI, Docker, OpenAI        | 📅 Week 4      |
 
 ---
 
 ## Tech Stack
 
 ### AI and ML
+
 ![sentence-transformers](https://img.shields.io/badge/sentence--transformers-orange)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C)
 ![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C)
 
 ### Vector Databases
+
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-FF6B35)
 ![Qdrant](https://img.shields.io/badge/Qdrant-DC244C)
 
 ### Deployment and Infrastructure
+
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
@@ -68,24 +71,28 @@ ai-learning-projects/
 ## Key Concepts Covered
 
 **Week 1 — Foundations**
+
 - Vector embeddings and semantic similarity
 - How transformer models convert text to vectors (tokenisation → attention → pooling)
 - Chunking strategies for RAG systems
 - Vector databases — ChromaDB and Qdrant
 
 **Week 2 — RAG Systems**
+
 - LLM fundamentals and OpenAI API
 - RAG pipeline design from scratch
 - LangChain abstractions and re-ranking
 - Classical ML literacy
 
 **Week 3 — Advanced Patterns**
+
 - Hybrid search (BM25 + dense vectors)
 - AI agents and the ReAct loop
 - Prompt security and injection defence
 - RAG evaluation with RAGAS
 
 **Week 4 — Production**
+
 - FastAPI for AI system deployment
 - Docker containerisation
 - Cloud deployment (Railway / Render)
@@ -96,6 +103,7 @@ ai-learning-projects/
 ## Learning Approach
 
 Every topic follows the same structure:
+
 1. **Concept** — deep intuition before any code
 2. **Tool** — see the concept in a real working tool
 3. **Build** — apply it to the week's project
@@ -119,10 +127,10 @@ Every topic follows the same structure:
 ## Progress
 
 - [x] Week 1 — Foundations + Mini Semantic Search
-- [ ] Week 2 — Vector DBs + LLMs + RAG Pipeline
-- [ ] Week 3 — Advanced RAG + Agents + Security
+- [x] Week 2 — Vector DBs + LLMs + RAG Pipeline
+- [x] Week 3 — Advanced RAG + Agents + Security
 - [ ] Week 4 — Deployment + Production + Portfolio
 
 ---
 
-*Updated weekly as projects are completed and deployed.*
+_Updated weekly as projects are completed and deployed._
