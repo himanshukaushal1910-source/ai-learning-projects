@@ -4,7 +4,8 @@ NovaMind Parent-Child RAG + RAGAS Evaluation — Week 3, Day 3
 Demonstrates:
   1. Parent-child chunking — fixes the LLM-7B split-chunk problem
   2. Side-by-side comparison: flat chunking vs parent-child retrieval
-  3. RAGAS evaluation over a 10-question golden dataset
+  3. Out-of-scope escape hatch tests — verifies system does not hallucinate
+  4. RAGAS evaluation over a 10-question golden dataset
 
 Requirements:
     pip install qdrant-client sentence-transformers groq ragas datasets
@@ -24,12 +25,11 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # ── Configuration ──────────────────────────────────────────────────────────────
 
-FLAT_COLLECTION = "novamind_flat"        # standard chunking (your Week 2 approach)
-PARENT_CHILD_COLLECTION = "novamind_pc"  # parent-child chunking
+FLAT_COLLECTION = "novamind_flat"
+PARENT_CHILD_COLLECTION = "novamind_pc"
 DENSE_SIZE = 384
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
-# Parent-child sizes — chosen so LLM-7B fits in one child chunk
 PARENT_SIZE = 600
 PARENT_OVERLAP = 100
 CHILD_SIZE = 150
@@ -75,8 +75,6 @@ guidelines document DSG-2024.
 }
 
 # ── Golden dataset — 10 questions with known correct answers ───────────────────
-# Written by reading the source documents directly.
-# This is the ground truth RAGAS will compare against.
 
 GOLDEN_DATASET = [
     {
@@ -151,7 +149,7 @@ child_splitter = RecursiveCharacterTextSplitter(
     chunk_size=CHILD_SIZE, chunk_overlap=CHILD_OVERLAP
 )
 
-# ── Step 4: Build flat collection (standard chunking) ─────────────────────────
+# ── Step 4: Build flat collection ─────────────────────────────────────────────
 
 existing = [c.name for c in client.get_collections().collections]
 for name in [FLAT_COLLECTION, PARENT_CHILD_COLLECTION]:
@@ -163,7 +161,7 @@ client.create_collection(
     vectors_config=VectorParams(size=DENSE_SIZE, distance=Distance.COSINE)
 )
 
-flat_chunks = []  # (text, source)
+flat_chunks = []
 for source, text in DOCUMENTS.items():
     for chunk in flat_splitter.split_text(text.strip()):
         if len(chunk) > 80:
@@ -190,15 +188,14 @@ client.create_collection(
     vectors_config=VectorParams(size=DENSE_SIZE, distance=Distance.COSINE)
 )
 
-parent_store = {}    # parent_id → parent text
-child_chunks = []    # (child_text, source, parent_id)
+parent_store = {}
+child_chunks = []
 
 for source, text in DOCUMENTS.items():
     parents = parent_splitter.split_text(text.strip())
     for p_idx, parent_text in enumerate(parents):
         parent_id = f"{source}_{p_idx}"
         parent_store[parent_id] = parent_text
-
         children = child_splitter.split_text(parent_text)
         for child_text in children:
             if len(child_text) > 30:
@@ -222,7 +219,6 @@ print(f"Parent store: {len(parent_store)} parent chunks.\n")
 # ── Search helpers ─────────────────────────────────────────────────────────────
 
 def flat_search(query: str, top_k: int = 3):
-    """Standard flat retrieval — returns chunks directly."""
     qvec = dense_model.encode(query).tolist()
     results = client.query_points(
         collection_name=FLAT_COLLECTION,
@@ -233,23 +229,14 @@ def flat_search(query: str, top_k: int = 3):
 
 
 def parent_child_search(query: str, top_k: int = 3):
-    """
-    Parent-child retrieval:
-    Step 1 — search child vectors (small, precise)
-    Step 2 — fetch parent chunk for each matched child (large, complete)
-    Step 3 — deduplicate parents (two children may share one parent)
-    """
     qvec = dense_model.encode(query).tolist()
-    # Fetch more children than needed to allow for parent deduplication
     results = client.query_points(
         collection_name=PARENT_CHILD_COLLECTION,
         query=qvec,
         limit=top_k * 3,
     )
-
     seen_parents = set()
     final_results = []
-
     for point in results.points:
         parent_id = point.payload["parent_id"]
         if parent_id not in seen_parents:
@@ -262,12 +249,11 @@ def parent_child_search(query: str, top_k: int = 3):
                     "text": parent_text,
                     "source": point.payload["source"],
                     "parent_id": parent_id,
-                    "matched_child": point.payload["text"],  # for debugging
+                    "matched_child": point.payload["text"],
                 }
             ))
         if len(final_results) == top_k:
             break
-
     return final_results
 
 
@@ -282,9 +268,14 @@ def build_context(results) -> str:
 
 def ask_groq(query: str, context: str) -> str:
     groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+    # Strengthened system prompt — prevents adjacent-topic hallucination
+    # Key additions: "explicitly stated word-for-word", "do not infer or extrapolate"
     system_prompt = """You are NovaMind's internal knowledge assistant.
-Answer ONLY using the information in the <context> tags.
-If context is insufficient say exactly: "I don't have enough information to answer this."
+Answer ONLY facts that are explicitly stated word-for-word in the <context> tags.
+Do not infer, extrapolate, or fill gaps with general knowledge.
+If any part of the answer requires information not explicitly in the context, say exactly:
+"I don't have enough information to answer this."
 Be concise — one or two sentences maximum."""
 
     user_msg = f"<context>\n{context}\n</context>\n\n<question>\n{query}\n</question>"
@@ -302,15 +293,14 @@ Be concise — one or two sentences maximum."""
     except Exception as e:
         return f"Groq error: {e}"
 
+
 # ── Comparison runner ──────────────────────────────────────────────────────────
 
 def compare(query: str):
-    """Show flat vs parent-child retrieval side by side."""
     print(f"\n{'═' * 70}")
     print(f"QUERY: {query}")
     print("═" * 70)
 
-    # Flat
     flat_results = flat_search(query, top_k=3)
     print("\n── FLAT CHUNKING (300 chars) ───────────────────────────────")
     for i, (idx, score, payload) in enumerate(flat_results, 1):
@@ -319,7 +309,6 @@ def compare(query: str):
     flat_answer = ask_groq(query, build_context(flat_results))
     print(f"  ANSWER: {flat_answer}")
 
-    # Parent-child
     pc_results = parent_child_search(query, top_k=3)
     print("\n── PARENT-CHILD (child=150 → parent=600) ──────────────────")
     for i, (idx, score, payload) in enumerate(pc_results, 1):
@@ -337,13 +326,35 @@ print("█" * 70)
 print("  NOVAMIND — FLAT vs PARENT-CHILD RETRIEVAL")
 print("█" * 70)
 
-# These three queries are chosen deliberately:
-# Q1 — simple fact: both should work
-# Q2 — split-chunk problem: parent-child should win
-# Q3 — exact code: tests precision of child retrieval
 compare("What is the minimum dataset size for LLM-7B fine-tuning?")
 compare("What is the parental leave policy for primary caregivers?")
 compare("What does the MX-4400 connector support?")
+
+# ── Out-of-scope escape hatch tests ───────────────────────────────────────────
+# These queries have NO answer in the corpus.
+# All three should fire the escape hatch — NOT hallucinate.
+# Query B (cancel subscription) is the most dangerous — adjacent context exists.
+
+print(f"\n{'█' * 70}")
+print("  OUT-OF-SCOPE ESCAPE HATCH TESTS")
+print("  All three answers should be: 'I don't have enough information'")
+print("█" * 70)
+
+escape_queries = [
+    "What is NovaMind's customer satisfaction score?",
+    "How do I cancel my NovaMind subscription?",
+    "What programming languages does NovaMind support?",
+]
+
+for query in escape_queries:
+    print(f"\n{'─' * 70}")
+    print(f"QUERY: {query}")
+    pc_results = parent_child_search(query, top_k=3)
+    context = build_context(pc_results)
+    answer = ask_groq(query, context)
+    fired = "✓ ESCAPE HATCH" if "don't have enough information" in answer.lower() else "✗ HALLUCINATED"
+    print(f"ANSWER: {answer}")
+    print(f"RESULT: {fired}")
 
 # ── RAGAS Evaluation ───────────────────────────────────────────────────────────
 
@@ -353,7 +364,6 @@ print("█" * 70)
 print("\nRunning RAG pipeline over all 10 golden questions...")
 print("(This calls Groq 10 times — may take 20-30 seconds)\n")
 
-# Collect RAG outputs for RAGAS
 questions = []
 answers = []
 contexts = []
@@ -362,25 +372,17 @@ ground_truths = []
 for item in GOLDEN_DATASET:
     q = item["question"]
     gt = item["ground_truth"]
-
-    # Use parent-child pipeline for evaluation
     pc_results = parent_child_search(q, top_k=3)
     context_texts = [r[2]["text"] for r in pc_results]
     context_str = build_context(pc_results)
     answer = ask_groq(q, context_str)
-
     questions.append(q)
     answers.append(answer)
-    contexts.append(context_texts)       # RAGAS expects list of strings per question
+    contexts.append(context_texts)
     ground_truths.append(gt)
-
     print(f"  Q: {q[:60]}...")
     print(f"  A: {answer[:80]}...")
     print()
-
-# ── RAGAS scoring ──────────────────────────────────────────────────────────────
-# RAGAS 0.4.x uses LangChain LLM wrappers for evaluation
-# We configure it to use Groq instead of OpenAI
 
 print("Running RAGAS evaluation...")
 print("(RAGAS uses an LLM to judge faithfulness and relevance)")
@@ -400,19 +402,16 @@ try:
     from langchain_groq import ChatGroq
     from langchain_huggingface import HuggingFaceEmbeddings
 
-    # Configure RAGAS to use Groq as the judge LLM
     ragas_llm = LangchainLLMWrapper(ChatGroq(
         model=GROQ_MODEL,
         temperature=0,
         api_key=os.environ.get("GROQ_API_KEY"),
     ))
 
-    # Configure RAGAS to use local HuggingFace embeddings
     ragas_embeddings = LangchainEmbeddingsWrapper(
         HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     )
 
-    # Build RAGAS dataset
     ragas_data = Dataset.from_dict({
         "question": questions,
         "answer": answers,
@@ -420,14 +419,12 @@ try:
         "ground_truth": ground_truths,
     })
 
-    # Set LLM and embeddings on each metric
     metrics = [faithfulness, answer_relevancy, context_precision, context_recall]
     for metric in metrics:
         metric.llm = ragas_llm
         if hasattr(metric, "embeddings"):
             metric.embeddings = ragas_embeddings
 
-    # Run evaluation
     result = evaluate(ragas_data, metrics=metrics)
 
     print("\n" + "═" * 70)
@@ -439,7 +436,6 @@ try:
     print(f"  Context Recall    : {result['context_recall']:.3f}  (did we retrieve enough context?)")
     print()
 
-    # Interpretation
     scores = {
         "Faithfulness": result["faithfulness"],
         "Answer Relevancy": result["answer_relevancy"],
