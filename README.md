@@ -1,7 +1,7 @@
 # AI Learning Projects 🤖
 
 > 4-week intensive AI engineering program — building production-grade AI systems from scratch.
-> Every project is deployed, documented and portfolio-ready.
+> Every project is built concept-first: deep understanding before code, then deployed.
 
 ---
 
@@ -10,21 +10,25 @@
 This repository documents a structured 4-week journey from AI fundamentals to production deployment.
 The focus is on building real, working AI systems — not just following tutorials.
 
-Each project is built concept-first: deep understanding before code, then deployed to a live URL.
-By end of week 4 this repository will contain 5 production-grade AI projects covering semantic search,
-RAG pipelines, recommendation systems, AI agents and full API deployment.
+Each project is built concept-first: deep understanding before code, then applied to real problems.
+By end of week 4 this repository will contain production-grade AI projects covering semantic search,
+RAG pipelines, hybrid retrieval, prompt security, and full API deployment.
 
 ---
 
 ## Projects
 
-| #   | Project                           | Description                                                                                                                                    | Tech Stack                             | Status         |
-| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | -------------- |
-| 1   | **Mini Semantic Search**          | Semantic search over text data using vector embeddings and cosine similarity. Supports metadata filtering and CLI interface.                   | sentence-transformers, ChromaDB, numpy | 🔨 In Progress |
-| 2   | **PDF Q&A Chatbot**               | Upload any PDF and ask questions. Answers include citations showing exactly which page the answer came from.                                   | OpenAI, ChromaDB, LangChain            | 📅 Week 2      |
-| 3   | **Product Recommendation Engine** | Content-based recommendation system using embedding similarity. Given any product, returns top 5 most similar products with scores.            | sentence-transformers, Qdrant          | 📅 Week 3      |
-| 4   | **AI Research Agent**             | Autonomous research agent that searches the web and queries a local knowledge base to synthesise answers from multiple sources.                | LangChain, LangGraph, Qdrant           | 📅 Week 3      |
-| 5   | **Team Knowledge Base API**       | Production-grade knowledge base API. Ingest PDFs and documents, search by meaning, get answers with sources. Deployed with FastAPI and Docker. | Qdrant, FastAPI, Docker, OpenAI        | 📅 Week 4      |
+| #   | Project                          | Description                                                                                                                                     | Tech Stack                                    | Status             |
+| --- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------------ |
+| 1   | **NovaMind Semantic Search**     | Semantic search over NovaMind internal documents using vector embeddings and cosine similarity. Metadata filtering by source.                   | sentence-transformers, ChromaDB               | ✅ Complete        |
+| 2   | **NovaMind Qdrant Search**       | Production-grade semantic search using Qdrant with Docker server mode. HNSW indexing, persistent storage.                                       | sentence-transformers, Qdrant                 | ✅ Complete        |
+| 3   | **NovaMind RAG Pipeline**        | Full RAG pipeline from scratch — chunk, embed, retrieve, generate. Answers grounded in NovaMind documents with inline citations.                | Qdrant, Groq, LLaMA 3.3 70B                   | ✅ Complete        |
+| 4   | **PDF RAG Pipeline**             | Upload any PDF and ask questions. Page-level citations showing exactly which page the answer came from. Full error handling.                    | PyMuPDF, Qdrant, Groq                         | ✅ Portfolio ready |
+| 5   | **Hybrid Search RAG**            | BM25 sparse search + dense semantic search combined with Reciprocal Rank Fusion. Handles exact codes and semantic queries simultaneously.       | Qdrant, rank-bm25, Groq                       | ✅ Complete        |
+| 6   | **Re-ranking + LangChain**       | Cross-encoder re-ranking on top of hybrid retrieval. Three pipelines compared side by side: dense, reranking, LangChain LCEL.                   | sentence-transformers CrossEncoder, LangChain | ✅ Complete        |
+| 7   | **Parent-Child RAG + RAGAS**     | Parent-child chunking to fix split-chunk retrieval failures. RAGAS evaluation with 10-question golden dataset. 10/10 accuracy.                  | Qdrant, RAGAS, Groq                           | ✅ Complete        |
+| 8   | **Secure RAG — Injection Audit** | Four-layer prompt injection defence: input sanitisation, chunk sanitisation, injection-resistant prompt, output filtering. Full attack battery. | Qdrant, Groq, regex                           | ✅ Complete        |
+| 9   | **Team Knowledge Base API**      | Production-grade knowledge base API. Ingest documents, hybrid search, FastAPI deployment, Docker.                                               | FastAPI, Qdrant, Docker, Groq                 | 📅 Week 4          |
 
 ---
 
@@ -33,9 +37,9 @@ RAG pipelines, recommendation systems, AI agents and full API deployment.
 ### AI and ML
 
 ![sentence-transformers](https://img.shields.io/badge/sentence--transformers-orange)
-![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-LLaMA3.3-blue)
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C)
-![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white)
 
 ### Vector Databases
 
@@ -54,17 +58,40 @@ RAG pipelines, recommendation systems, AI agents and full API deployment.
 
 ```
 ai-learning-projects/
-  Week1/
-    Day1/               — Python for data, vectors, cosine similarity
-    Day2/               — Embedding models, tokenisation, mean pooling
-    Day3/               — Git, chunking strategy, semantic search
-    Day4/               — ChromaDB, vector storage, metadata filtering
-    Day5/               — Project polish, mini semantic search complete
-  Week2/                — Coming: Vector DB internals, LLMs, RAG pipeline
-  Week3/                — Coming: Hybrid search, agents, prompt security
-  Week4/                — Coming: FastAPI, Docker, cloud deployment
-  novamind_story.md     — Running narrative of every concept learned
+  Week 1/
+    Day 1/    — Embeddings, cosine similarity, vector space intuition
+    Day 2/    — Embedding models, tokenisation, mean pooling, model comparison
+    Day 3/    — Chunking strategies, Git setup
+    Day 4/    — ChromaDB, metadata filtering, NovaMind semantic search
+  Week 2/
+    Day 1/    — Qdrant internals, HNSW indexing, Docker server mode
+    Day 2/    — LLM API setup, Groq adoption (see API decision below)
+    Day 3/    — Full RAG pipeline v1 and v2 with citations
+    Day 4/    — PDF ingestion, page fingerprinting, error handling
+  Week 3/
+    Day 1/    — Hybrid search: BM25 + dense + RRF fusion
+    Day 2/    — Cross-encoder reranking + LangChain LCEL pipeline
+    Day 3/    — Parent-child chunking + RAGAS evaluation
+    Day 4/    — Prompt injection audit: 4-layer security architecture
+    Day 5/    — Classical ML literacy: sklearn churn prediction
+  Week 4/     — Coming: FastAPI, Docker, cloud deployment, capstone
 ```
+
+---
+
+## API Decision — Why Groq Instead of OpenAI
+
+OpenAI requires paid credits — not available at the start of this program.
+
+Gemini free tier was attempted but abandoned: deprecated `google.generativeai` library,
+wrong model names, and daily quota exhausted during debugging.
+
+**Groq was adopted as the primary LLM API:**
+
+- Free tier with generous rate limits — no quota issues during development
+- OpenAI-compatible syntax — one line change to switch: `Groq()` → `OpenAI()`
+- Model: `llama-3.3-70b-versatile` — comparable to GPT-4o-mini for RAG tasks
+- Switching to OpenAI is planned for Week 4 when budget is available
 
 ---
 
@@ -73,30 +100,34 @@ ai-learning-projects/
 **Week 1 — Foundations**
 
 - Vector embeddings and semantic similarity
-- How transformer models convert text to vectors (tokenisation → attention → pooling)
-- Chunking strategies for RAG systems
-- Vector databases — ChromaDB and Qdrant
+- Transformer tokenisation, attention, mean pooling
+- Chunking strategies: fixed, recursive, semantic, document structure, sentence window
+- ChromaDB and Qdrant for vector storage
 
 **Week 2 — RAG Systems**
 
-- LLM fundamentals and OpenAI API
-- RAG pipeline design from scratch
-- LangChain abstractions and re-ranking
-- Classical ML literacy
+- HNSW indexing and approximate nearest neighbour search
+- LLM fundamentals: tokens, context window, temperature, hallucination
+- RAG pipeline from scratch: chunk → embed → retrieve → generate
+- PDF ingestion with page-level citations
+- Prompt engineering: 5 rules for RAG system prompts
 
-**Week 3 — Advanced Patterns**
+**Week 3 — Advanced RAG + Security**
 
-- Hybrid search (BM25 + dense vectors)
-- AI agents and the ReAct loop
-- Prompt security and injection defence
-- RAG evaluation with RAGAS
+- Hybrid search: BM25 sparse + dense semantic, fused with RRF
+- Two-stage retrieval: bi-encoder retrieval + cross-encoder reranking
+- LangChain LCEL pipeline — modern pipe-based chain construction
+- Parent-child chunking: small chunks for retrieval, large for context
+- RAGAS evaluation: faithfulness, answer relevancy, context precision, recall
+- Prompt injection: direct and indirect attacks, 4-layer defence architecture
+- Classical ML literacy: supervised/unsupervised, classification/regression, sklearn
 
-**Week 4 — Production**
+**Week 4 — Production** _(upcoming)_
 
 - FastAPI for AI system deployment
 - Docker containerisation
 - Cloud deployment (Railway / Render)
-- Portfolio and interview preparation
+- Capstone: Team Knowledge Base API
 
 ---
 
@@ -106,31 +137,32 @@ Every topic follows the same structure:
 
 1. **Concept** — deep intuition before any code
 2. **Tool** — see the concept in a real working tool
-3. **Build** — apply it to the week's project
+3. **Build** — apply it to the NovaMind project context
 4. **Depth** — edge cases, failure modes, tradeoffs
-5. **Deploy** — ship something real every week
+5. **Review** — self-test and curriculum check every day
 
 ---
 
-## About the Developer
+## About
 
-**[Himanshu Kaushal]**
+**Himanshu Kaushal**
 
-[Add 2-3 sentences about yourself — your background, what you're transitioning from or into, and what excites you about AI engineering.]
+AI Engineer in training. JEE Advanced qualified. Building production-grade AI systems
+through a structured 4-week intensive program covering RAG pipelines, vector databases,
+LLM integration, and cloud deployment.
 
-- 📧 [himanshukaushal1910@gmail.com]
-- 💼 [LinkedIn URL]
-- 🐙 [https://github.com/himanshukaushal1910-source/]
+- 📧 himanshukaushal1910@gmail.com
+- 🐙 https://github.com/himanshukaushal1910-source/
 
 ---
 
 ## Progress
 
-- [x] Week 1 — Foundations + Mini Semantic Search
+- [x] Week 1 — Foundations + Semantic Search
 - [x] Week 2 — Vector DBs + LLMs + RAG Pipeline
-- [x] Week 3 — Advanced RAG + Agents + Security
+- [x] Week 3 — Advanced RAG + Security + ML Literacy
 - [ ] Week 4 — Deployment + Production + Portfolio
 
 ---
 
-_Updated weekly as projects are completed and deployed._
+_Updated weekly as projects are completed._
