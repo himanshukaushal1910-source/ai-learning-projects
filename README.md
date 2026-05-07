@@ -126,6 +126,9 @@ wrong model names, and daily quota exhausted during debugging.
 
 - Day 1: FastAPI RAG API with auth, health endpoint, Pydantic validation
 - Day 2: Full Docker app — FastAPI + persistent Qdrant via docker-compose
+- Day 3: Live deployment — NovaMind Knowledge Base on Hugging Face Spaces
+
+🔗 Live demo: https://himanshukaushal1910-novamind-rag-api.hf.space
 
 - Cloud deployment (Railway / Render)
 - Capstone: Team Knowledge Base API
