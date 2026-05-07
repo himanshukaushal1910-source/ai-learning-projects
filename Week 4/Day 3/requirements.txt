@@ -1,0 +1,9 @@
+# NovaMind RAG — Hugging Face Spaces requirements
+# Spaces reads this file and installs everything listed here.
+# No Docker, no docker-compose — just Python packages.
+
+gradio
+qdrant-client
+sentence-transformers
+groq
+langchain-text-splitters

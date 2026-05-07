@@ -122,10 +122,11 @@ wrong model names, and daily quota exhausted during debugging.
 - Prompt injection: direct and indirect attacks, 4-layer defence architecture
 - Classical ML literacy: supervised/unsupervised, classification/regression, sklearn
 
-**Week 4 — Production** _(upcoming)_
+**Week 4 — Production**
 
-- FastAPI for AI system deployment
-- Docker containerisation
+- Day 1: FastAPI RAG API with auth, health endpoint, Pydantic validation
+- Day 2: Full Docker app — FastAPI + persistent Qdrant via docker-compose
+
 - Cloud deployment (Railway / Render)
 - Capstone: Team Knowledge Base API
 
