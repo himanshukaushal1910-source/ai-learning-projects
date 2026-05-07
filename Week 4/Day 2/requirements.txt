@@ -1,0 +1,11 @@
+# NovaMind RAG API — Python dependencies
+# Docker reads this file and installs everything listed here into the image.
+# Keeping this separate from the code means Docker can cache the installation
+# layer — if only your code changes, packages don't reinstall.
+
+fastapi
+uvicorn
+qdrant-client
+sentence-transformers
+groq
+langchain-text-splitters

@@ -1,0 +1,61 @@
+NovaMind Internal Update — Q2 Review and Q3 Planning
+=====================================================
+Date: July 1, 2024
+Author: Sarah Chen, Chief of Staff
+Distribution: All Hands
+
+---
+
+PRICING MODEL DECISION — Q2 OUTCOME
+
+After extensive review during Q2, the leadership team has finalised NovaMind's pricing
+structure moving forward. Following three months of customer interviews, competitive
+analysis and internal modelling, we have decided to adopt a per-seat subscription model
+effective August 1, 2024. The new pricing tiers are as follows: Starter at $12 per seat
+per month for teams of up to 10, Growth at $9 per seat per month for teams of 11 to 50,
+and Enterprise at $7 per seat per month for teams exceeding 50 seats. The flat-rate model
+that was previously under consideration was ultimately rejected after feedback from our
+enterprise pilot customers indicated that it created friction during procurement. Per-seat
+pricing aligns NovaMind's revenue directly with customer team size and perceived value.
+The sales team will begin outreach to existing beta customers this week to migrate them
+to the new structure. All contracts signed before August 1 will be honoured at their
+original terms through December 2024.
+
+---
+
+ENGINEERING ROADMAP — Q3 PRIORITIES
+
+The engineering team has finalised the Q3 roadmap following last week's planning session.
+The primary focus for July through September will be API performance and reliability.
+Benchmark testing conducted in June revealed that our core project retrieval endpoint has
+a p95 latency of 840 milliseconds under moderate load, which is significantly above our
+internal target of 300 milliseconds. Reducing this latency is the team's top priority for
+Q3. The approach will involve database query optimisation, introduction of a Redis caching
+layer for frequently accessed project data, and a migration of our search infrastructure
+to an indexed vector-based approach. Secondary priorities include completing the mobile
+application redesign that was carried over from Q2, and shipping the Slack integration
+that has been in beta with three pilot customers since May. The Slack integration is
+currently on track for general release in late August. All feature work beyond these
+priorities has been pushed to Q4 to allow the team to focus on stability and performance.
+
+---
+
+HIRING UPDATE — NEW ROLES AND TIMELINE
+
+NovaMind is expanding the team in Q3 with three new hires across two departments. The
+engineering team is hiring two senior backend engineers to support the performance
+initiatives outlined above. Both roles are currently live on our careers page and have
+been shared with our recruiting partners. We have received 47 applications to date and
+first-round interviews begin next Monday. Target start date for both engineering roles
+is September 1. Additionally, the customer success team is hiring one Customer Success
+Manager to support our growing enterprise customer base following the pricing transition.
+This role will focus on onboarding, retention and expansion revenue. The CSM position
+is being handled directly by the Head of Customer Success and is expected to be filled
+by mid-August. All three hires have been approved in the current operating budget and
+do not require additional board sign-off. Team leads will be notified once offers are
+extended so they can prepare onboarding plans accordingly.
+
+---
+
+Next company-wide update will be distributed on August 1, 2024.
+Questions or feedback should be directed to sarah.chen@novamind.io
