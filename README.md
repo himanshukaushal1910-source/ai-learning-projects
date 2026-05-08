@@ -11,8 +11,17 @@ This repository documents a structured 4-week journey from AI fundamentals to pr
 The focus is on building real, working AI systems — not just following tutorials.
 
 Each project is built concept-first: deep understanding before code, then applied to real problems.
-By end of week 4 this repository will contain production-grade AI projects covering semantic search,
-RAG pipelines, hybrid retrieval, prompt security, and full API deployment.
+This repository contains production-grade AI projects covering semantic search, RAG pipelines,
+hybrid retrieval, prompt security, full API deployment, Docker containerisation, and cloud deployment.
+
+---
+
+## Live Demo
+
+🔗 **NovaMind Knowledge Base (live):** https://himanshukaushal1910-novamind-rag-api.hf.space
+
+Ask questions about NovaMind's internal documents. Powered by RAG — retrieval augmented generation
+with hybrid search, Qdrant, and LLaMA 3.3 70B via Groq.
 
 ---
 
@@ -28,7 +37,11 @@ RAG pipelines, hybrid retrieval, prompt security, and full API deployment.
 | 6   | **Re-ranking + LangChain**       | Cross-encoder re-ranking on top of hybrid retrieval. Three pipelines compared side by side: dense, reranking, LangChain LCEL.                   | sentence-transformers CrossEncoder, LangChain | ✅ Complete        |
 | 7   | **Parent-Child RAG + RAGAS**     | Parent-child chunking to fix split-chunk retrieval failures. RAGAS evaluation with 10-question golden dataset. 10/10 accuracy.                  | Qdrant, RAGAS, Groq                           | ✅ Complete        |
 | 8   | **Secure RAG — Injection Audit** | Four-layer prompt injection defence: input sanitisation, chunk sanitisation, injection-resistant prompt, output filtering. Full attack battery. | Qdrant, Groq, regex                           | ✅ Complete        |
-| 9   | **Team Knowledge Base API**      | Production-grade knowledge base API. Ingest documents, hybrid search, FastAPI deployment, Docker.                                               | FastAPI, Qdrant, Docker, Groq                 | 📅 Week 4          |
+| 9   | **Classical ML Literacy**        | Churn prediction model comparing Logistic Regression vs Random Forest. Feature importance analysis, precision/recall evaluation.                | scikit-learn, pandas                          | ✅ Complete        |
+| 10  | **FastAPI RAG API**              | RAG pipeline exposed as a REST API with Pydantic validation, API key auth, health endpoint, async endpoints, CORS.                              | FastAPI, uvicorn, Pydantic, Qdrant, Groq      | ✅ Complete        |
+| 11  | **Docker Full App**              | FastAPI RAG app + persistent Qdrant running together via docker-compose. Single command starts everything. Vectors survive restarts.            | Docker, docker-compose, Qdrant volumes        | ✅ Complete        |
+| 12  | **NovaMind Knowledge Base**      | Live Gradio UI deployed to Hugging Face Spaces. Ask questions via browser — no API knowledge required. Public URL, free hosting.               | Gradio, Qdrant, Groq, Hugging Face Spaces     | ✅ Live            |
+| 13  | **Team Knowledge Base API**      | Production-grade multi-document knowledge base. Ingest PDFs and text, hybrid search (BM25 + dense + RRF), cross-encoder reranking, 4 endpoints. | FastAPI, Qdrant, rank-bm25, CrossEncoder, Groq | ✅ Complete       |
 
 ---
 
@@ -50,6 +63,7 @@ RAG pipelines, hybrid retrieval, prompt security, and full API deployment.
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Spaces-yellow)
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
 
 ---
@@ -74,7 +88,12 @@ ai-learning-projects/
     Day 3/    — Parent-child chunking + RAGAS evaluation
     Day 4/    — Prompt injection audit: 4-layer security architecture
     Day 5/    — Classical ML literacy: sklearn churn prediction
-  Week 4/     — Coming: FastAPI, Docker, cloud deployment, capstone
+  Week 4/
+    Day 1/    — FastAPI RAG API with auth, Pydantic validation, health endpoint
+    Day 2/    — Docker full app: FastAPI + persistent Qdrant via docker-compose
+    Day 3/    — Gradio UI deployed to Hugging Face Spaces (live demo)
+    Day 4/    — Capstone: Team Knowledge Base API — multi-doc, hybrid search, reranking
+    Day 5/    — Portfolio polish, interview prep, program complete
 ```
 
 ---
@@ -91,7 +110,6 @@ wrong model names, and daily quota exhausted during debugging.
 - Free tier with generous rate limits — no quota issues during development
 - OpenAI-compatible syntax — one line change to switch: `Groq()` → `OpenAI()`
 - Model: `llama-3.3-70b-versatile` — comparable to GPT-4o-mini for RAG tasks
-- Switching to OpenAI is planned for Week 4 when budget is available
 
 ---
 
@@ -100,9 +118,9 @@ wrong model names, and daily quota exhausted during debugging.
 **Week 1 — Foundations**
 
 - Vector embeddings and semantic similarity
-- Transformer tokenisation, attention, mean pooling
 - Chunking strategies: fixed, recursive, semantic, document structure, sentence window
-- ChromaDB and Qdrant for vector storage
+- ChromaDB and Qdrant for vector storage and metadata filtering
+- Git and GitHub for version control
 
 **Week 2 — RAG Systems**
 
@@ -124,14 +142,10 @@ wrong model names, and daily quota exhausted during debugging.
 
 **Week 4 — Production**
 
-- Day 1: FastAPI RAG API with auth, health endpoint, Pydantic validation
-- Day 2: Full Docker app — FastAPI + persistent Qdrant via docker-compose
-- Day 3: Live deployment — NovaMind Knowledge Base on Hugging Face Spaces
-
-🔗 Live demo: https://himanshukaushal1910-novamind-rag-api.hf.space
-
-- Cloud deployment (Railway / Render)
-- Capstone: Team Knowledge Base API
+- FastAPI REST API with Pydantic validation, authentication, async endpoints
+- Docker containerisation: Dockerfile, docker-compose, persistent volumes
+- Hugging Face Spaces deployment with Gradio UI — live public URL
+- Capstone: multi-document ingestion, hybrid search, reranking, full API
 
 ---
 
@@ -151,12 +165,13 @@ Every topic follows the same structure:
 
 **Himanshu Kaushal**
 
-AI Engineer in training. JEE Advanced qualified. Building production-grade AI systems
-through a structured 4-week intensive program covering RAG pipelines, vector databases,
-LLM integration, and cloud deployment.
+AI Engineer. JEE Advanced qualified. Built 13 production-grade AI projects across a structured
+4-week intensive program covering RAG pipelines, vector databases, LLM integration, prompt security,
+and cloud deployment.
 
 - 📧 himanshukaushal1910@gmail.com
 - 🐙 https://github.com/himanshukaushal1910-source/
+- 🤗 https://huggingface.co/himanshukaushal1910
 
 ---
 
@@ -165,8 +180,8 @@ LLM integration, and cloud deployment.
 - [x] Week 1 — Foundations + Semantic Search
 - [x] Week 2 — Vector DBs + LLMs + RAG Pipeline
 - [x] Week 3 — Advanced RAG + Security + ML Literacy
-- [ ] Week 4 — Deployment + Production + Portfolio
+- [x] Week 4 — Deployment + Production + Portfolio ✅
 
 ---
 
-_Updated weekly as projects are completed._
+_4-week intensive program complete._
